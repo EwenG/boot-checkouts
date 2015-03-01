@@ -1,6 +1,6 @@
  (ns ewen.boot.boot-checkouts
    (:require [clojure.java.io :as io]
-     [boot.core :refer [deftask set-env!]]
+     [boot.core :refer [deftask set-env! with-pre-wrap]]
      [boot.pod :as pod]))
 
 
@@ -63,4 +63,5 @@
            (doseq [{:keys [project-path env]} envs]
              (doseq [source-paths (:source-paths env)]
                (set-env! :source-paths #(conj % (str project-path "/" source-paths)))))
-           (pod/destroy-pod checkouts-pod)))
+           (pod/destroy-pod checkouts-pod)
+           (with-pre-wrap fileset fileset)))

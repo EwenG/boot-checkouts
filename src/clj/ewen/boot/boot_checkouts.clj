@@ -1,4 +1,7 @@
- (ns boot-checkouts)
+ (ns ewen.boot.boot-checkouts
+   (:require [clojure.java.io :as io]
+     [boot.core :refer [deftask set-env!]]
+     [boot.pod :as pod]))
 
 
 

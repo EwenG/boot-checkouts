@@ -1,5 +1,6 @@
 (set-env! :dependencies '[[boot/core "2.0.0-rc10"]
                           [boot/worker "2.0.0-rc10"]
+                          [boot/pod "2.0.0-rc10"]
                           [ewen.boot/boot-maven "0.0.1"]
                           [ewen.boot/boot-misc "0.0.1"]
                           [adzerk/bootlaces "0.1.11" :scope "test"]]

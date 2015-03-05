@@ -7,7 +7,7 @@
 
  (defn get-boot-project-env [project-pod project-dir-path]
        (let [boot-file-path (-> (io/file project-dir-path "build.boot")
-                                .getAbsolutePath)]
+                                .getCanonicalPath)]
             (pod/with-eval-in project-pod
                               (require '[boot.core]
                                        '[boot.file :as file]
@@ -16,7 +16,7 @@
                                        '[boot.pod :as pod])
                               (reset! pod/pod-id 1)
                               (->> (io/file ~project-dir-path)
-                                   (.getCanonicalFile)
+                                   (.getCanonicalPath)
                                    file/split-path
                                    rest
                                    (apply io/file (boot.App/getBootDir) "tmp")
@@ -54,7 +54,7 @@
 
 (defn get-lein-project-env [project-pod project-dir-path]
       (let [lein-file-path (-> (io/file project-dir-path "project.clj")
-                               .getAbsolutePath)]
+                               .getCanonicalPath)]
            (->> lein-file-path
                 slurp
                 read-string
@@ -81,7 +81,7 @@
                checkout-files (-> (io/file "./checkouts")
                                   .listFiles
                                   vec)
-               checkout-paths (map #(.getAbsolutePath %) checkout-files)
+               checkout-paths (map #(.getCanonicalPath %) checkout-files)
                envs (doall
                       (for [checkout-path checkout-paths]
                         {:project-path checkout-path
